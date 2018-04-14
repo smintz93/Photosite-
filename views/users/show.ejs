@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+	<header>
+		<h1>Show page for <%=user.username%></h1>
+
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/users">Back to Users</a></li>
+			</ul>
+		</nav>
+	</header>
+
+
+		<img src="<%= user.photo%>"><br>
+		<h3><%= user.photoinfo%></h3>
+
+
+	<a href="/users/<%= user.id%>/edit">Edit User</a>
+
+	<form action="/users/<%= user.id%>?_method=DELETE" method="POST">
+		<button>delete</button>
+	</form>
+
+
+
+
+
+
+
+</body>
+</html>

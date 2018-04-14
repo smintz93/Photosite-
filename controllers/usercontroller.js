@@ -25,6 +25,25 @@ const Users = require("../models/users")
 	// 	photoinfo: "tree picture"
 	// })
 
+
+
+	// Users.create({
+	// 	username: "Bill46",
+	// 	photo: "https://pmcvariety.files.wordpress.com/2015/06/nba-finals-game-1.jpg?w=1000&h=563&crop=1",
+	// 	photoinfo: "steph curry"
+	// })
+
+
+	// Users.create({
+	// 	username: "Sam3212",
+	// 	photo: "https://i2-prod.mirror.co.uk/incoming/article8724876.ece/ALTERNATES/s615/Athletic-Bilbao-v-Barcelona.jpg",
+	// 	photoinfo: "messi"
+	// })
+
+
+
+
+
 //
 
 // INDEX
@@ -47,6 +66,9 @@ router.use((req, res, next) => {
 
 // NEW ROUTE 
 
+
+
+
 router.post("/", (req, res) => {
 	Users.create(req.body, (err, createdUser) => {
 		if(err) console.log(err);
@@ -63,11 +85,33 @@ router.get("/new", (req, res) => {
 })
 
 
+// EDIT ROUTE
+
+
+// SHOW ROUTE 
+
+router.get("/:id", (req, res) => {
+	
+	Users.findById(req.params.id, (err, thisUser) => {
+		if(err) console.log(err);
+
+		res.render("users/show.ejs", {
+			user: thisUser,
+		})
+	})
+})
 
 
 
+// DELETE
 
+router.delete("/:id", (req, res) => {
+	Users.findByIdAndRemove(req.params.id, (err, deletedUser) => {
+			if(err) console.log(err);
+			res.redirect('/users')
 
+	})
+})
 
 
 
