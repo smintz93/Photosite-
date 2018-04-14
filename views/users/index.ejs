@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	
+
+	<header>
+		<h1>Meet the Talented Photographers</h1>
+	
+			<nav>
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/users/new">Add your Info!</a></li>	
+				</ul>
+			</nav>
+
+	</header>
+
+		<h2>List of Users</h2>
+
+		<ul>
+			
+			<% for (let i = 0; i < userList.length; i++) { -%>
+				<li>
+					
+					<a href="/users/<%= userList[i].id%>"><%= userList[i].username%></a>
+
+				</li>
+
+
+
+
+
+			<% } -%>
+
+
+
+
+		</ul>
+
+</body>
+</html>
