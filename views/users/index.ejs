@@ -5,38 +5,48 @@
 </head>
 <body>
 
-	
-
-	<header>
+	<header class="container">
 		<h1>Meet the Talented Photographers</h1>
 	
+		<div class="row">
 			<nav>
 				<ul>
-					<li><a href="/">Home</a></li>
-					<li><a href="/users/new">Add your Info!</a></li>	
+					<li class="col"><a href="/">Home</a></li>
+					<li class="col"><a href="/users/new">Add your Info!</a></li>	
 				</ul>
 			</nav>
 
+		</div>	
+
 	</header>
 
+	<main class="container">
+
 		<h2>List of Users</h2>
+
+		<div class="card" style="width: 18rem;">	
+
+		<div class="card-body">	
 
 		<ul>
 			
 			<% for (let i = 0; i < userList.length; i++) { -%>
-				<li>
-					
-					<a href="/users/<%= userList[i].id%>"><%= userList[i].username%></a><br>
+		
+				<p class="text-center"><h5 class="card-title"><a href="/users/<%= userList[i].id%>"><%= userList[i].username%></a></h5></p><br>
 
-						<a href="/users/<%= userList[i].id%>/edit">Edit Article</a>
-
-				</li>
-
-
+				
+		
 			<% } -%>
 
-
 		</ul>
+
+		</div>	
+
+		</div>		
+
+	</main>
+
+
 
 </body>
 </html>
