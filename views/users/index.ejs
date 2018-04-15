@@ -26,17 +26,14 @@
 			<% for (let i = 0; i < userList.length; i++) { -%>
 				<li>
 					
-					<a href="/users/<%= userList[i].id%>"><%= userList[i].username%></a>
+					<a href="/users/<%= userList[i].id%>"><%= userList[i].username%></a><br>
+
+						<a href="/users/<%= userList[i].id%>/edit">Edit Article</a>
 
 				</li>
 
 
-
-
-
 			<% } -%>
-
-
 
 
 		</ul>

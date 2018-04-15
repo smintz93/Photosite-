@@ -41,9 +41,6 @@ const Users = require("../models/users")
 	// })
 
 
-
-
-
 //
 
 // INDEX
@@ -59,14 +56,12 @@ router.get("/", (req, res) => {
 });
 
 // DO I NEED THIS?
-router.use((req, res, next) => {
-	// console.log("I am middleware and will be run for all routes");
-	next();
-})
+// router.use((req, res, next) => {
+// 	// console.log("I am middleware and will be run for all routes");
+// 	next();
+// })
 
 // NEW ROUTE 
-
-
 
 
 router.post("/", (req, res) => {
@@ -88,13 +83,27 @@ router.get("/new", (req, res) => {
 // EDIT ROUTE
 
 
+router.get("/:index/edit", (req, res) => {
+	
+	Users.findById(req.params.index, (err, user) => {
+		if(err) console.log(err);
+		res.render("users/edit.ejs", {
+			user: user,
+			index: user.id
+		})
+	})
+})
+
+
+
+
 // SHOW ROUTE 
 
 router.get("/:id", (req, res) => {
-	
-	Users.findById(req.params.id, (err, thisUser) => {
-		if(err) console.log(err);
 
+	Users.findById(req.params.id, (err, thisUser) => {
+		if(err) console.log(err)
+		console.log("edit is being hit")
 		res.render("users/show.ejs", {
 			user: thisUser,
 		})
@@ -114,20 +123,26 @@ router.delete("/:id", (req, res) => {
 })
 
 
+router.put("/:id", (req, res) => {
 
+	const theUser = {};
+	theUser.username = req.body.username;
+	theUser.photo = req.body.photo;
 
+	Users.findByIdAndUpdate(req.params.id, theUser, (err, user) => {
 
+		console.log("edit is being hit and it is getting updated")
 
+		console.log(user)
+		
+		user = theUser
 
+		res.redirect("/users")
 
-
-
-
-
-
-
-
-
+		console.log(user)
+	})
+	
+})
 
 
 
