@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<h1>Photo Index Page</h1>
+
+	<header class="container">
+		<h1>Photo Page</h1>
+	
+		<div class="row">
+			<nav>
+				<ul>
+					<li class="col"><a href="/">Home</a></li>
+					<li class="col"><a href="/photos/new">Add a Photo!</a></li>	
+				</ul>
+			</nav>
+
+		</div>	
+
+	</header>
+
+
+	<% for (let i = 0; i < photos.length; i++) { -%>
+
+	<ul>
+		
+		<a href="/photos/<%= photos[i].id%>">
+
+			<img src="<%=photos[i].link%>">
+			</a><br>
+	</ul>
+
+
+		<form action="/photos/<%= photos[i].id%>?_method=DELETE" method="POST">
+						<button>delete</button>
+					</form>
+		
+	<% } -%>
+
+
+
+
+
+</body>
+</html>

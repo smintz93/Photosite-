@@ -18,13 +18,11 @@
 
 	<h2><%= user.username%>'s info </h2>
 
-	<form action="/users/<%= index%>?_method=PUT" method="POST">
+	<form action="/users/<%= id%>?_method=PUT" method="POST">
 
 		<input type="text" name="username" value="<%=user.username%>"><br>
 
-		<input type="text" name="photo" value="<%=user.photo%>">
-
-
+	
 		<button type="Submit">Update User</button> 
 
 	</form>

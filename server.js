@@ -25,10 +25,11 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 
-
 // CONTROLLERS 
 const userControllers = require("./controllers/usercontroller")
 app.use("/users", userControllers)
+const photoControllers = require("./controllers/photocontroller")
+app.use("/photos", photoControllers)
 
 
 

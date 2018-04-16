@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<header>
+		<h1>Post a Photo</h1>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/photos">Photos Index</a></li>
+			</ul>
+		</nav>
+	</header>
+
+		<form action="/photos" method="POST">
+
+				<select name="userId">
+				<% for (let i = 0; i < users.length; i++) { -%>
+						<option value="<%=users[i].id%>"><%=users[i].username%></option>
+				<% } -%>(
+
+				</select><br>
+
+
+			Image: <input type="text" name="link" value="img link"><br>
+			Body: <input type="text" name="body"><br>
+			<input type="submit" name="" value="Post Photo">
+
+		</form>
+
+
+
+
+
+
+
+
+</body>
+</html>

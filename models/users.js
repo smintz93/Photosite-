@@ -1,19 +1,17 @@
 const mongoose = require("mongoose");
 
+
+const Photos = require("./photos.js")
+
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
 	username: {
 		type: String, 
-		required: true,
+		required: true
 	},
-	photo: {
-		type: String, 
+	photos: [Photos.schema]
 
-	},
-	photoinfo: {
-		type: String
-	}
 })
 
 

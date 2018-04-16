@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Users = require("../models/users")
+const Photos = require("../models/photos")
 
 // TEST
 
@@ -55,11 +56,7 @@ router.get("/", (req, res) => {
 	});
 });
 
-// DO I NEED THIS?
-// router.use((req, res, next) => {
-// 	// console.log("I am middleware and will be run for all routes");
-// 	next();
-// })
+
 
 // NEW ROUTE 
 
@@ -82,19 +79,16 @@ router.get("/new", (req, res) => {
 
 // EDIT ROUTE
 
-
-router.get("/:index/edit", (req, res) => {
+router.get("/:id/edit", (req, res) => {
 	
-	Users.findById(req.params.index, (err, user) => {
+	Users.findById(req.params.id, (err, user) => {
 		if(err) console.log(err);
 		res.render("users/edit.ejs", {
 			user: user,
-			index: user.id
+			id: user.id
 		})
 	})
 })
-
-
 
 
 // SHOW ROUTE 
@@ -115,11 +109,19 @@ router.get("/:id", (req, res) => {
 // DELETE
 
 router.delete("/:id", (req, res) => {
-	Users.findByIdAndRemove(req.params.id, (err, deletedUser) => {
-			if(err) console.log(err);
-			res.redirect('/users')
-
-	})
+		photos.findByIdAndRemove(req.params.id, (err, foundPhoto) => {
+			// res.send(foundPhoto)
+			// // delete the article
+			// // if(err) console.log(err);
+			Users.findOne({'photos._id': req.params.id}, (err, foundUser) => {
+				// res.send(foundUser)
+				found.photo.id(req.params.id).remove()
+				foundUser.save((err, data) => {
+					res.redirect("/photos")
+				})
+			})
+			
+		})	
 })
 
 
@@ -127,7 +129,6 @@ router.put("/:id", (req, res) => {
 
 	const theUser = {};
 	theUser.username = req.body.username;
-	theUser.photo = req.body.photo;
 
 	Users.findByIdAndUpdate(req.params.id, theUser, (err, user) => {
 
@@ -143,8 +144,6 @@ router.put("/:id", (req, res) => {
 	})
 	
 })
-
-
 
 
 
