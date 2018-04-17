@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 
 const Users = require("../models/users")
 const Photos = require("../models/photos")
@@ -47,6 +48,7 @@ const Photos = require("../models/photos")
 // INDEX
 
 router.get("/", (req, res) => {
+	
 	Users.find((err, users) => {
 	
 		res.render("users/index.ejs",{
