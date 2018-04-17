@@ -37,18 +37,20 @@ router.get("/new", (req, res) => {
 
 router.get('/:id/edit', (req, res)=>{
     Photos.findById(req.params.id, (err, foundPhoto)=>{
-
-    Users.find({}, (err, allUsers) => {
+    	if(err) console.log(err);
+    	Users.find({}, (err, allUsers) => {
+    		if(err) console.log(err);
       // We can do this to find the author of the selected article
-      Users.findOne({'photos._id': req.params.id}, (err, foundPhotoUser) => {
+      		Users.findOne({'photos._id': req.params.id}, (err, foundPhotoUser) => {
+      			if(err) console.log(err);
 
-        res.render('articles/edit.ejs', {
-          photo: foundPhoto,
-          users: allUsers,
-          photoUser: foundPhotoUser
-        });
-      });
-    });
+        		res.render('photos/edit.ejs', {
+          			photo: foundPhoto,
+          			users: allUsers,
+          			photoUser: foundPhotoUser
+       			 });
+      		});
+   		 });
     });
 });
 
@@ -108,6 +110,8 @@ router.delete("/:id", (req, res) => {
 			
 		})	
 })
+
+
 
 
 
