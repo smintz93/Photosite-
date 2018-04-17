@@ -6,11 +6,11 @@
 <body>
 
 
-	<header>
-		<h1>Show page for <%=user.username%></h1>
+	<header class="container">
+		<h1 class="text-center">Show page for <%=user.username%></h1>
 
 		<nav>
-			<ul>
+			<ul class="row justify-content-around">
 				<li><a href="/">Home</a></li>
 				<li><a href="/users">Back to Users</a></li>
 			</ul>
@@ -21,11 +21,33 @@
 
 	<a href="/users/<%= user.id%>/edit">Edit User</a>
 
+		<h3>Photos by this user</h3>
+		<ul>
+			<% for (let i = 0; i < user.photos.length; i++) { -%>
+				
+				<a href="/photos/><%= user.photos[i].id%>">
+
+
+				<img src=<%=user.photos[i].link%>>
+
+
+			<% } -%>
+
+
+			
+		</ul>
+
+
+
+
+
+
+
 	<form action="/users/<%= user.id%>?_method=DELETE" method="POST">
 		<button>delete</button>
 	</form>
 
-	
+
 
 
 

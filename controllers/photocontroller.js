@@ -56,13 +56,12 @@ router.get('/:id/edit', (req, res)=>{
 
 
 
-
 // SHOW 
 
 router.get("/:id", (req, res) => {
 	Photos.findById(req.params.id, (err, thisPhoto) => {
 		Users.findOne({"photos._id": req.params.id}, (err, foundUser) => {
-			console.log(foundUser)
+			// console.log(foundUser)
 			if(err) console.log(err);
 			res.render("photos/show.ejs", {
 				photos: thisPhoto,
@@ -108,18 +107,45 @@ router.delete("/:id", (req, res) => {
 				})
 			})
 			
-		})	
+	})	
 })
 
+// PUT ROUTE
 
-
-
+router.put('/:id', (req, res)=>{
+    // find this article in articles collection
+    Photos.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedPhoto)=>{
+        // find the author with an article in their array that matches
+        Users.findOne({ 'photos._id': req.params.id }, (err2, foundUser) => {
+            // update article:
+      if(foundUser_id != req.body.UserId){
+      // if the foundAuthor does not equal the req.body author
+        foundUser.photos.id(req.params.id).remove();
+        foundUser.save((err, savedFoundUser) => {
+          Users.findById(req.body.userId, (err, newUser) => {
+            newUser.photos.push(updatedPhotop);
+            newUser.save((err, savedNewUser) => {
+              res.redirect('/photos/' + req.params.id)
+            })
+        })
+      })
+      } else {
+          foundUser.photos.id(req.params.id).remove();
+          // push new one
+          foundUser.photos.push(updatedPhoto)
+          // save the updated author to database
+          foundUser.save((err, data) => {
+            // let's go back to that article's show page
+            res.redirect('/photos/' + req.params.id)
+          })
+      }
+        });
+    });
+});
 
 
 
 	
-
-
 
 
 
