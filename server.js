@@ -39,6 +39,14 @@ app.use("/photos", photoControllers)
 const homeControllers = require("./controllers/homecontroller")
 app.use("/home", homeControllers)
 
+app.get("/", (req, res) => {
+	res.render("home/links.ejs")
+})
+
+app.get("*", (req, res) => {
+	res.status(404).send("That aint a page")
+})
+
 
 
 

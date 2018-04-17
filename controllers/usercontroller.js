@@ -60,6 +60,116 @@ router.get("/", (req, res) => {
 
 
 
+
+// Register 
+
+router.get("/register", (req, res) => {
+	console.log(req.session, "Hey this was logged from within user register")
+	res.render("home/register.ejs");
+})
+
+
+
+
+// Login
+
+router.get("/login", (req, res) => {
+
+	const message = req.session.message
+	req.session.message = null;
+
+	res.render("home/login.ejs", {
+		message: message
+	})
+})
+
+
+
+// POST Login
+
+
+router.post("/login", (req, res) => {
+
+	// 1. find the user 
+	User.findOne({ username: req.body.username}, (err, userFound) => {
+		// 2 if there is a user with that username
+		if(userFound) {
+
+			// 3. compare passwords
+			if(bcrypt.compareSync(req.body.password, userFound.password)) {
+			// 4. set up session
+			req.session.username = req.body.username;
+			req.session.loggedIn = true;
+			req.session.message = "Hope you're having a nice day"
+
+			//5. send them along
+			res.redirect("/home")
+
+			} 
+			// passwords dont match
+			else {
+			// don't say if it was username or password that was no good. 
+			req.session.message = "Incorrect username or password."
+			res.redirect("/users/login")
+
+			}
+
+
+		} 
+		// 2. user was not found
+		else {
+			req.session.message = "Incorrect username or password."
+			res.redirect("/users/login")
+		}
+	})
+})
+
+
+
+
+// POST Register 
+
+
+router.post("/register", (req, res) => {
+	
+	// capture password
+	const password = req.body.password;
+
+	// 1st param is password you are encrypting
+	// 2nd param is the algorithm we encrypt with and the salt
+
+	const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+
+	// this is the obj we will store in db
+	const userDbEntry = {
+		username: req.body.username,
+		password: passwordHash
+	}
+
+	Users.create(userDbEntry, (err, createdUser) => {
+		console.log(createdUser, "^^ this is the user that got created ---------");
+		// You can add whatever data you want
+		req.session.username = createdUser.username
+		req.session.loggedIn = true;
+		req.session.message = "Thanks for signing up, " + req.body.username;
+
+
+		res.redirect("/home")
+
+
+	})
+
+})
+
+
+
+
+
+
+
+
+
+
 // NEW ROUTE 
 
 
