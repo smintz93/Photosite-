@@ -86,6 +86,17 @@ router.get("/login", (req, res) => {
 })
 
 
+router.get("/logout", (req, res) => {
+	req.session.destroy((err) => {
+		if(err) {
+			console.log("whoops", err)
+		} else {
+			res.redirect("/users/register")
+		}
+	})
+})
+
+
 
 // POST Login
 
