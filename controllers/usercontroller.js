@@ -61,6 +61,8 @@ router.get("/", (req, res) => {
 
 
 
+
+
 // Register 
 
 router.get("/register", (req, res) => {
@@ -91,7 +93,7 @@ router.get("/login", (req, res) => {
 router.post("/login", (req, res) => {
 
 	// 1. find the user 
-	User.findOne({ username: req.body.username}, (err, userFound) => {
+	Users.findOne({ username: req.body.username}, (err, userFound) => {
 		// 2 if there is a user with that username
 		if(userFound) {
 
@@ -162,31 +164,23 @@ router.post("/register", (req, res) => {
 })
 
 
-
-
-
-
-
-
-
-
 // NEW ROUTE 
 
 
-router.post("/", (req, res) => {
-	Users.create(req.body, (err, createdUser) => {
-		if(err) console.log(err);
-		console.log(createdUser);
+// router.post("/", (req, res) => {
+// 	Users.create(req.body, (err, createdUser) => {
+// 		if(err) console.log(err);
+// 		console.log(createdUser);
 
-		res.redirect("/users")
+// 		res.redirect("/users")
 		
-	})
-})
+// 	})
+// })
 
 
-router.get("/new", (req, res) => {
-	res.render("users/new.ejs")
-})
+// router.get("/new", (req, res) => {
+// 	res.render("users/new.ejs")
+// })
 
 
 // EDIT ROUTE

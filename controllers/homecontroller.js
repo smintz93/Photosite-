@@ -6,21 +6,21 @@ router.get("/", (req, res) => {
 	// so we can send it to the template 
 	// remember the session object is available **everywhere** in the controllers
 	const d = new Date(Date.now())
-	
+
 	const message = req.session.message
 
 	req.session.message = null
 
-	// if(req.session.loggedIn) {
-			res.render("home.ejs", {
+	if(req.session.loggedIn) {
+			res.render("home/home.ejs", {
 			username: req.session.username,
 			loginDate: d.toLocaleTimeString("en-us"),
 			message: message
 		})
-	// } else {
-	// 	req.session.message = "You must be logged in to do that"
-	// 	res.redirect("/users/login")
-	// }
+	} else {
+		req.session.message = "You must be logged in to do that"
+		res.redirect("/users/login")
+	}
 
 
 
